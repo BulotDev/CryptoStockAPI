@@ -22,13 +22,6 @@
             <a href="{{url('frontend/pages/about.html')}}">About US</a>
         </div>
 
-        <div class="social-icons">
-            <a href="{{url('https://Youtube.com/AsmrProg')}}"><i class="ri-youtube-line"></i></a>
-            <a href="{{url('https://t.me/AsmrProg_Admin')}}"><i class="ri-telegram-line"></i></a>
-            <a href="{{url('https://Github.com/AsmrProg-YT')}}"><i class="ri-github-line"></i></a>
-            <a href="{{url('#Soon')}}"><i class="ri-discord-line"></i></a>
-        </div>
-
     </div>
 
     <div class="main">
