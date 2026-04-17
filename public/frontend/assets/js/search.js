@@ -8,16 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (query) {
         fetchSearchResult(query, [coinsList, exchangesList, nftsList]);
     } else {
-        const searchHeading = document.getElementById('searchHeading');
-        const searchContainer = document.querySelector('.search-container');
-        searchContainer.innerHTML = `<p style="color: red; text-align: center; margin-bottom: 8px">Nothing To Show...</p>`;
-        searchHeading.innerText = 'Please search something...';
+        fetchSearchResult('bit', [coinsList, exchangesList, nftsList]);
     }
 });
 
 function fetchSearchResult(param, idsToToggle) {
-
-    const searchHeading = document.getElementById('searchHeading');
 
     idsToToggle.forEach(id => {
         const errorElement = document.getElementById(`${id}-error`);
@@ -31,8 +26,6 @@ function fetchSearchResult(param, idsToToggle) {
     coinsList.innerHTML = '';
     exchangesList.innerHTML = '';
     nftsList.innerHTML = '';
-
-    searchHeading.innerText = `Search results for "${param}"`;
 
     const url = `https://api.coingecko.com/api/v3/search?query=${param}`;
     const options = { method: 'GET', headers: { accept: 'application/json' } };
@@ -56,7 +49,7 @@ function fetchSearchResult(param, idsToToggle) {
 
             let minCount = Math.min(coinsCount, exchangesCount, nftsCount);
 
-            if (coinsCount > 0 && exchangesCount > 0 & nftsCount > 0) {
+            if (coinsCount > 0 && exchangesCount > 0 && nftsCount > 0) {
                 coins = coins.slice(0, minCount);
                 exchanges = exchanges.slice(0, minCount);
                 nfts = nfts.slice(0, minCount);
@@ -103,7 +96,7 @@ function coinsResult(coins) {
         `;
         table.appendChild(row);
         row.onclick = () => {
-            window.location.href = `../../pages/coin.html?coin=${coin.id}`;
+            window.location.href = `coin.html?coin=${coin.id}`;
         };
     });
     coinsList.appendChild(table);

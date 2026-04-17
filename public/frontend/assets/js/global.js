@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = document.getElementById('searchInput').value.trim();
         if (!query) return;
 
-        window.location.href = `/../../pages/search.html?query=${query}`;
+        window.location.href = `/frontend/pages/search.html?query=${encodeURIComponent(query)}`;
     });
 
     const openMenuBtn = document.getElementById('openMenu');
