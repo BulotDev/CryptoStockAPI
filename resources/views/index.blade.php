@@ -40,7 +40,6 @@
         <nav>
             <div class="left-section">
                 <button id="openMenu"><i class="ri-menu-line"></i></button>
-                <a href="#" class="logo"><img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Crypto Marketplace" style="height: 30px; width: 30px;"></a>
                 <div class="nav-links">
                     <a href="{{url('/index')}}" class="active">Home</a>
                     <a href="{{url('frontend/pages/charts.html')}}">Charts</a>

@@ -1,10 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
     <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{{ route('index') }}">
-            <x-application-logo style="height: 32px; width:auto;" />
-        </a>
-
         <!-- Toggler (hamburger) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -15,11 +10,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side -->
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <x-nav-link :active="request()->routeIs('index')" :href="route('index')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </li>
             </ul>
 
             <!-- Right Side -->
