@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root{
-    --background-color: #fff;
-    --background-color-primary: #fff;
-    --background-color-secondary: #EFF2F5;
+    --background-color: #000000;
+    --background-color-primary: #000000;
+    --background-color-secondary: #0B0B0B;
 
-    --color-white: #000;
-    --color-black: #fff;
-    --border-color: #D4D4D4;
-    --text-secondary: #55626F;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --border-color: #1D1F22;
+    --text-secondary: #BEBEBE;
 
-    --chart-light-bg: #fff;
-    --chart-dark-bg: #050505;
-    --chart-light-border: #D4D4D4;
-    --chart-dark-border: #333;
+    --chart-light-bg: #000000;
+    --chart-dark-bg: #000000;
+    --chart-light-border: #1D1F22;
+    --chart-dark-border: #000000;
     
     --links-color: #1565C0;
 }
@@ -209,22 +209,24 @@ nav .right-section{
 nav .right-section .search{
     display: flex;
     align-items: center;
-    background: var(--background-color-secondary);
+    background: #000;
     padding: 0 10px;
     border-radius: 12px;
     width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 nav .right-section .search input{
     padding: 10px 6px;
-    background: var(--background-color-secondary);
-    color: var(--color-white);
+    background: #000;
+    color: #ffffff;
     font-size: 14px;
+    border: none;
 }
 
 nav .right-section .search input::placeholder,
 nav .right-section .search i{
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.65);
 }
 
 nav .right-section > i{
@@ -356,6 +358,14 @@ nav .right-section > i.ri-moon-line{
     border-radius: 12px;
 }
 
+.tab-container .tab-content{
+    background: var(--background-color);
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
 .tab-container .tabs{
     background: var(--background-color-secondary);
     display: inline-flex;
@@ -384,7 +394,7 @@ nav .right-section > i.ri-moon-line{
 
 .tab-container .tabs .tab-button.active,
 .tab-container .tabs .tab-button.active i{
-    color: var(--color-white);
+    color: var(--links-color);
 }
 
 footer{
@@ -1084,12 +1094,17 @@ nav .left-section .nav-links a:hover {
 }
 
 nav .right-section .search {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(148, 163, 184, 0.12);
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 nav .right-section .search input {
-    color: #eef2ff;
+    background: #000;
+    color: #ffffff;
+}
+
+nav .right-section .search input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
 }
 
 .global {

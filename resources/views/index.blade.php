@@ -30,7 +30,6 @@
 
         <div class="global">
             <p>Coins: <b id="coins-count">N/A</b></p>
-            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
             <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
                             class="ri-arrow-down-s-fill"></i></span></span></p>
             <p>24H Vol: <b id="volume">N/A</b></p>
@@ -48,12 +47,6 @@
                 </div>
             </div>
             <div class="right-section">
-                <form class="search" id="searchForm">
-                    <i class="ri-search-line"></i>
-                    <input type="text" id="searchInput" placeholder="Search for an asset..." required
-                        autocomplete="off">
-                </form>
-                <i id="theme-toggle" class="ri-sun-line"></i>
             </div>
         </nav>
 
@@ -86,8 +79,7 @@
             <div class="tabs">
                 <button class="tab-button active" onclick="openTab(event, 'tab1')"><i class="ri-apps-2-line"></i>
                     Assets</button>
-                <button class="tab-button" onclick="openTab(event, 'tab2')"><i class="ri-arrow-left-right-line"></i>
-                    Exchanges</button>
+                
                 <button class="tab-button" onclick="openTab(event, 'tab3')"><i class="ri-exchange-2-line"></i>
                     Categories</button>
                 <button class="tab-button" onclick="openTab(event, 'tab4')"><i class="ri-btc-line"></i> Holders</button>
@@ -96,11 +88,6 @@
                 <div id="asset-list"></div>
                 <div class="spinner" id="asset-list-spinner"></div>
                 <div class="error-message" id="asset-list-error">API limit reached. Please try again later.</div>
-            </div>
-            <div class="tab-content" id="tab2">
-                <div id="exchange-list"></div>
-                <div class="spinner" id="exchange-list-spinner"></div>
-                <div class="error-message" id="exchange-list-error">API limit reached. Please try again later.</div>
             </div>
             <div class="tab-content" id="tab3">
                 <div id="category-list"></div>
