@@ -1,5 +1,4 @@
 const coinsCount = document.getElementById('coins-count');
-const exchangesCount = document.getElementById('exchanges-count');
 const marketCap = document.getElementById('marketCap');
 const marketCapChangeElement = document.getElementById('marketCapChange');
 const volume = document.getElementById('volume');
@@ -7,51 +6,29 @@ const dominance = document.getElementById('dominance');
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
         body.id = savedTheme;
-        updateIcon(savedTheme);
-    }
-
-    themeToggle.addEventListener('click', () => {
-        if (body.id === 'light-theme') {
-            body.id = 'dark-theme';
-            localStorage.setItem('theme', 'dark-theme');
-            updateIcon('dark-theme');
-        } else {
-            body.id = 'light-theme';
-            localStorage.setItem('theme', 'light-theme');
-            updateIcon('light-theme');
-        }
-
-        if (typeof initializeWidget === 'function') {
-            initializeWidget();
-        }
-
-    });
-
-    function updateIcon(currentTheme) {
-        if (currentTheme === 'light-theme') {
-            themeToggle.classList.remove('ri-moon-line');
-            themeToggle.classList.add('ri-sun-line');
-        } else {
-            themeToggle.classList.remove('ri-sun-line');
-            themeToggle.classList.add('ri-moon-line');
-        }
+    } else {
+        // enforce dark mode by default and persist it
+        body.id = 'dark-theme';
+        localStorage.setItem('theme', 'dark-theme');
     }
 
     const form = document.getElementById('searchForm');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-        const query = document.getElementById('searchInput').value.trim();
-        if (!query) return;
+            const input = document.getElementById('searchInput');
+            const query = input ? input.value.trim() : '';
+            if (!query) return;
 
-        window.location.href = `/../../pages/search.html?query=${query}`;
-    });
+            window.location.href = `/frontend/pages/search.html?query=${encodeURIComponent(query)}`;
+        });
+    }
 
     const openMenuBtn = document.getElementById('openMenu');
     const overlay = document.querySelector('.overlay');
@@ -113,7 +90,6 @@ function fetchGlobal() {
             })
             .catch(error => {
                 coinsCount.textContent = 'N/A';
-                exchangesCount.textContent = 'N/A';
                 marketCap.textContent = 'N/A';
                 marketCapChangeElement.textContent = 'N/A';
                 volume.textContent = 'N/A';
@@ -125,7 +101,6 @@ function fetchGlobal() {
 
 function displayGlobalData(globalData) {
     coinsCount.textContent = globalData.active_cryptocurrencies || 'N/A';
-    exchangesCount.textContent = globalData.markets || 'N/A';
 
     marketCap.textContent = globalData.total_market_cap?.usd ? `$${(globalData.total_market_cap.usd / 1e12).toFixed(3)}T` : 'N/A';
     const marketCapChange = globalData.market_cap_change_percentage_24h_usd;

@@ -20,9 +20,7 @@ function openTab(event, tabName) {
             case 'tab1':
                 fetchAndDisplay('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true', ['asset-list'], displayAssets, tabName, 'Crypto_Data');
                 break;
-            case 'tab2':
-                fetchAndDisplay('https://api.coingecko.com/api/v3/exchanges', ['exchange-list'], displayExchanges, tabName, 'Exchanges_Data');
-                break;
+            
             case 'tab3':
                 fetchAndDisplay('https://api.coingecko.com/api/v3/coins/categories', ['category-list'], displayCategories, tabName, 'Categories_Data');
                 break;
@@ -107,7 +105,7 @@ function displayTrendCoins(coins) {
             <td>$${coinData.data.total_volume}</td>
             <td class="${coinData.data.price_change_percentage_24h.usd >= 0 ? 'green' : 'red'}">${coinData.data.price_change_percentage_24h.usd.toFixed(2)}%</td>
         `;
-        row.onclick = () => window.location.href = `../../pages/coin.html?coin=${coinData.id}`;
+        row.onclick = () => window.location.href = `/frontend/pages/coin.html?coin=${coinData.id}`;
         table.appendChild(row);
     });
     coinsList.appendChild(table);
@@ -156,7 +154,7 @@ function displayAssets(data) {
             sparkline: asset.sparkline_in_7d.price,
             color: asset.sparkline_in_7d.price[0] <= asset.sparkline_in_7d.price[asset.sparkline_in_7d.price.length - 1] ? 'green' : 'red'
         });
-        row.onclick = () => window.location.href = `../../pages/coin.html?coin=${asset.id}`;
+        row.onclick = () => window.location.href = `/frontend/pages/coin.html?coin=${asset.id}`;
     });
     cryptoList.appendChild(table);
 
@@ -199,29 +197,7 @@ function displayAssets(data) {
     });
 }
 
-function displayExchanges(data) {
-    const exchangeList = document.getElementById('exchange-list');
-    exchangeList.innerHTML = '';
-    const table = createTable(['Rank', 'Exchange', 'Trust Score', '24h Trade', '24h Trade (Normal)', 'Country', 'Website', 'Year'], 1);
 
-    data = data.slice(0, 20);
-
-    data.forEach(exchange => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="rank">${exchange.trust_score_rank}</td>
-            <td class="name-column table-fixed-column"><img src="${exchange.image}" alt="${exchange.name}"> ${exchange.name}</td>
-            <td>${exchange.trust_score}</td>
-            <td>$${exchange.trade_volume_24h_btc.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} BTC</td>
-            <td>$${exchange.trade_volume_24h_btc_normalized.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} BTC</td>
-            <td class="name-column">${exchange.country || 'N/A'}</td>
-            <td class="name-column">${exchange.url}</td>
-            <td>${exchange.year_established || 'N/A'}</td>
-        `;
-        table.appendChild(row);
-    });
-    exchangeList.appendChild(table);
-}
 
 function displayCategories(data) {
     const catagoriesList = document.getElementById('category-list');

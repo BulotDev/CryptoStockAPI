@@ -58,18 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (query) {
         fetchCoinInfo(query);
     } else {
-        window.location.href = "/../../index.html";
+        window.location.href = "/index";
     }
 });
 
 async function fetchCoinInfo(query) {
     const coinInfoError = document.getElementById('coin-info-error');
     coinInfoError.style.display = 'none';
-    const apiUrl = `https://api.coingecko.com/api/v3/coins/${query}`;
+    coinInfoError.textContent = '';
+    const apiUrl = `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(query)}`;
 
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error('API limit reached.');
+        if (!response.ok) {
+            const statusMessage = `${response.status} ${response.statusText}`;
+            if (response.status === 404) {
+                throw new Error('Coin not found. Please select a valid asset.');
+            }
+            throw new Error(`Coin API request failed: ${statusMessage}`);
+        }
         const data = await response.json();
         wdigetConfig1.symbol = `MEXC:${data.symbol.toUpperCase()}USDT`;
 
@@ -81,7 +88,8 @@ async function fetchCoinInfo(query) {
         displayCoinInfo(data);
     } catch (error) {
         coinInfoError.style.display = 'flex';
-        console.log(error);
+        coinInfoError.textContent = error.message || 'Network error loading coin data. Please check your connection and try again.';
+        console.error('Coin fetch error:', error);
     }
 }
 

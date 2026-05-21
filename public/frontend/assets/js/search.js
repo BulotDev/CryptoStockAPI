@@ -1,40 +1,32 @@
 const coinsList = document.getElementById('coins-list');
-const exchangesList = document.getElementById('exchanges-list');
 const nftsList = document.getElementById('nfts-list');
 
 document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const query = params.get('query');
     if (query) {
-        fetchSearchResult(query, [coinsList, exchangesList, nftsList]);
+        fetchSearchResult(query, ['coins-list', 'nfts-list']);
     } else {
-        const searchHeading = document.getElementById('searchHeading');
-        const searchContainer = document.querySelector('.search-container');
-        searchContainer.innerHTML = `<p style="color: red; text-align: center; margin-bottom: 8px">Nothing To Show...</p>`;
-        searchHeading.innerText = 'Please search something...';
+        fetchSearchResult('bit', ['coins-list', 'nfts-list']);
     }
 });
 
 function fetchSearchResult(param, idsToToggle) {
-
-    const searchHeading = document.getElementById('searchHeading');
 
     idsToToggle.forEach(id => {
         const errorElement = document.getElementById(`${id}-error`);
 
         if (errorElement) {
             errorElement.style.display = 'none';
+            errorElement.textContent = '';
         }
         toggleSpinner(id, `${id}-spinner`, true);
     });
 
     coinsList.innerHTML = '';
-    exchangesList.innerHTML = '';
     nftsList.innerHTML = '';
 
-    searchHeading.innerText = `Search results for "${param}"`;
-
-    const url = `https://api.coingecko.com/api/v3/search?query=${param}`;
+    const url = `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(param)}`;
     const options = { method: 'GET', headers: { accept: 'application/json' } };
 
     fetch(url, options)
@@ -47,31 +39,23 @@ function fetchSearchResult(param, idsToToggle) {
         })
         .then(data => {
             let coins = (data.coins || []).filter(coin => coin.thumb !== "missing_thumb.png");
-            let exchanges = (data.exchanges || []).filter(ex => ex.thumb !== "missing_thumb.png");
             let nfts = (data.nfts || []).filter(nf => nf.thumb !== "missing_thumb.png");
 
             const coinsCount = coins.length;
-            const exchangesCount = exchanges.length;
             const nftsCount = nfts.length;
 
-            let minCount = Math.min(coinsCount, exchangesCount, nftsCount);
+            let minCount = Math.min(coinsCount, nftsCount);
 
-            if (coinsCount > 0 && exchangesCount > 0 & nftsCount > 0) {
+            if (coinsCount > 0 && nftsCount > 0) {
                 coins = coins.slice(0, minCount);
-                exchanges = exchanges.slice(0, minCount);
                 nfts = nfts.slice(0, minCount);
             }
 
             coinsResult(coins);
-            exchangesResult(exchanges);
             nftsResult(nfts);
 
             if (coins.length === 0) {
                 coinsList.innerHTML = '<p style="color: red; text-align: center;">No results found for coins.</p>';
-            }
-
-            if (exchanges.length === 0) {
-                exchangesList.innerHTML = '<p style="color: red; text-align: center;">No results found for exchanges.</p>';
             }
 
             if (nfts.length === 0) {
@@ -82,7 +66,11 @@ function fetchSearchResult(param, idsToToggle) {
         .catch(error => {
             idsToToggle.forEach(id => {
                 toggleSpinner(id, `${id}-spinner`, false);
-                document.getElementById(`${id}-error`).style.display = 'block';
+                const errorElement = document.getElementById(`${id}-error`);
+                if (errorElement) {
+                    errorElement.textContent = 'Unable to fetch results. Please try again later.';
+                    errorElement.style.display = 'block';
+                }
             });
             console.error('Error fetching data:', error);
         });
@@ -103,30 +91,13 @@ function coinsResult(coins) {
         `;
         table.appendChild(row);
         row.onclick = () => {
-            window.location.href = `../../pages/coin.html?coin=${coin.id}`;
+            window.location.href = `coin.html?coin=${coin.id}`;
         };
     });
     coinsList.appendChild(table);
 }
 
-function exchangesResult(exchanges) {
-    exchangesList.innerHTML = '';
 
-    const table = createTable([
-        'Exchange', 'Market'
-    ]);
-
-    exchanges.forEach(ex => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-           <td class="name-column"><img src="${ex.thumb}" alt="${ex.name}"> ${ex.name}</td>
-            <td>${ex.market_type}</td>
-        `;
-        table.appendChild(row);
-
-    });
-    exchangesList.appendChild(table);
-}
 
 function nftsResult(nfts) {
     nftsList.innerHTML = '';

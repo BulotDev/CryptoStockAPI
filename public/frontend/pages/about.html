@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Marketplace</title>
+    <link rel="icon" type="image/png" href="https://assets.coingecko.com/coins/images/1/large/bitcoin.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -26,7 +28,6 @@
 
         <div class="global">
             <p>Coins: <b id="coins-count">N/A</b></p>
-            <p>Exchanges: <b id="exchanges-count">N/A</b></p>
             <p>Market Cap: <span><b id="marketCap">N/A</b> <span id="marketCapChange">N/A <i
                             class="ri-arrow-down-s-fill"></i></span></span></p>
             <p>24H Vol: <b id="volume">N/A</b></p>
@@ -36,7 +37,7 @@
         <nav>
             <div class="left-section">
                 <button id="openMenu"><i class="ri-menu-line"></i></button>
-                <a href="#" class="logo">Logo.</a>
+                <a href="#" class="logo"><img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Crypto Marketplace" style="height: 30px; width: 30px;"></a>
                 <div class="nav-links">
                     <a href="/index">Home</a>
                     <a href="/frontend/pages/charts.html">Charts</a>
@@ -45,20 +46,14 @@
                 </div>
             </div>
             <div class="right-section">
-                <form class="search" id="searchForm">
-                    <i class="ri-search-line"></i>
-                    <input type="text" id="searchInput" placeholder="Search for an asset..." required
-                        autocomplete="off">
-                </form>
-                <i id="theme-toggle" class="ri-sun-line"></i>
             </div>
         </nav>
 
         <div class="about-container">
             <div class="info">
-                <h3>CryptoStockAPI</h3>
+                <h3>Crypto Marketplace</h3>
                 <p>
-                    Welcome to CryptoStockAPI, your premier destination for seamless and secure cryptocurrency transactions.
+                    Welcome to Crypto Marketplace, your premier destination for seamless and secure cryptocurrency transactions.
                     Our mission is to empower individuals and institutions by providing a platform that combines
                     innovation, security, and user-friendly design to meet all your digital asset needs.
                     <br><br>
@@ -70,9 +65,6 @@
                     <button>Learn More</button>
                     <button>Contact US</button>
                 </div>
-            </div>
-            <div class="image">
-                <img src="{{ url('frontend/assets/images/about.JPG') }}" alt="about">
             </div>
         </div>
 
